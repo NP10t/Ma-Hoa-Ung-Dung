@@ -81,14 +81,11 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: 'mysql-usernam-password', usernameVariable: 'MYSQL_USER', passwordVariable: 'MYSQL_PASSWORD')
                 ]) {
-                    sh """
-                        echo \$JAVA_HOME
+                    sh '''
+                        echo $JAVA_HOME
                         chmod +x ./mvnw
-                        ./mvnw test \
-                          -Dspring.profiles.active=dev \
-                          -Dspring.datasource.username=${MYSQL_USER} \
-                          -Dspring.datasource.password=${MYSQL_PASSWORD}
-                    """
+                        ./mvnw test -D"spring.profiles.active"="dev" -D"spring.datasource.username=$MYSQL_USER" -D"spring.datasource.password=$MYSQL_PASSWORD"
+                    '''
                 }
             }
         }
