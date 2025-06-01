@@ -84,12 +84,12 @@ pipeline {
                     sh '''
                         echo $JAVA_HOME
                         chmod +x ./mvnw
-                        ./mvnw test -D"spring.profiles.active"="dev" -D"spring.datasource.username=$MYSQL_USER" -D"spring.datasource.password=$MYSQL_PASSWORD"
+                        ./mvnw test -D"spring.profiles.active"="dev"
                     '''
                 }
             }
         }
-
+ // -D"spring.datasource.username=$MYSQL_USER" -D"spring.datasource.password=$MYSQL_PASSWORD"
         stage('Build with Maven') {
             steps {
                 sh './mvnw package -DskipTests'
