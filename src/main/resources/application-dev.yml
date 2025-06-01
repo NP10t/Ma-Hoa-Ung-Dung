@@ -9,8 +9,8 @@ spring:
     # url: jdbc:mysql://10.255.255.254:3306/vngo  # chạy mysql trên host window, 10.255.255.254 là 
                                                 # nơi để gửi lệnh cho window từ wsl
     driverClassName: "com.mysql.cj.jdbc.Driver"
-    username:
-    password:
+    username: root
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
