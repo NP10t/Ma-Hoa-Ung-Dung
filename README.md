@@ -1,5 +1,5 @@
 # vngo-backend
-VNGo is a drive-booking app system. This system has three apps in total: VNGo, VNGo Driver, and VNGo Admin.
+VNGo is a drive-booking apps system. This system has 3 apps in total, they are VNGo, VNGo Driver and VNGo Admin.
 
 This is an end-term project of our four-member team in the Intro to Software Engineering course.
 
