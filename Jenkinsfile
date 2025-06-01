@@ -58,11 +58,11 @@ pipeline {
                     ]) {
                     script {
                         sh '''
-                            docker run -d --name mysql-service \
+                            docker run -d --name mysql-service --network jenkins \
                                 -e MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} \
                                 -e MYSQL_DATABASE=${MYSQL_DB} \
-                                -p 3306:3306 \
-                                mysql:8.0 \
+                                -p 3308:3306 \
+                                mysql:8.0
                         '''
                         sh '''
                             until docker exec mysql-service mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e "SELECT 1;" > /dev/null 2>&1; do
@@ -78,14 +78,18 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    echo $JAVA_HOME
-                    chmod +x ./mvnw
-                    ./mvnw test -D"spring.profiles.active"="dev"
-                '''
+                withCredentials([
+                    usernamePassword(credentialsId: 'mysql-usernam-password', usernameVariable: 'MYSQL_USER', passwordVariable: 'MYSQL_PASSWORD')
+                ]) {
+                    sh '''
+                        echo $JAVA_HOME
+                        chmod +x ./mvnw
+                        ./mvnw test -D"spring.profiles.active"="dev" -D"spring.datasource.username=$MYSQL_USER" -D"spring.datasource.password=$MYSQL_PASSWORD"
+                    '''
+                }
             }
         }
-
+        
         stage('Build with Maven') {
             steps {
                 sh './mvnw package -DskipTests'

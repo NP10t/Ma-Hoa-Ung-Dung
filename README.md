@@ -93,6 +93,8 @@ Discover branches: Exclude branches that are also filed as PRs.
 With this choice, Jenkins won't create continuous-integration/jenkins/pr-head, which is the test for the commit to merge to main.
 We don’t need that because we already have continuous-integration/jenkins/branch doing that job.
 The continuous-integration/jenkins/branch will automatically be created by Jenkins when there is any push to feature/map.
+
+<img src="https://github.com/user-attachments/assets/4528521a-8cab-40bd-8ca0-74328af7505c" width="700">
 <img src="https://github.com/user-attachments/assets/c275d257-9f54-4e15-a178-ed9809a8bda0" width="700">
 
 Even though feature/map doesn't require any test to pass to push, continuous-integration/jenkins/branch just runs by Jenkins and indicates the result as a green tick or red cross as shown in this image.
