@@ -1,4 +1,0 @@
-git reset --hard <commitId> quay về 1 commit trước
-
-git cherry-pick <commitId> gắn commit đó lên lại, commit đó thực ra chưa bị
-xóa khi reset --hard mà vẫn còn được nhớ

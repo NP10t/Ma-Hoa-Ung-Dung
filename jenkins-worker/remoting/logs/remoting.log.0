@@ -1,0 +1,10 @@
+Jun 01, 2025 4:34:19 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: vngo-node
+Jun 01, 2025 4:34:19 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3283.v92c105e0f819
+Jun 01, 2025 4:34:19 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using jenkins-worker/remoting as a remoting work directory
+Jun 01, 2025 4:34:20 PM hudson.remoting.Launcher$CuiListener status
+INFO: WebSocket connection open
+Jun 01, 2025 4:34:20 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
