@@ -58,11 +58,11 @@ pipeline {
                     ]) {
                     script {
                         sh '''
-                            docker run -d --name mysql-service \
+                            docker run -d --name mysql-service --network jenkins \
                                 -e MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} \
                                 -e MYSQL_DATABASE=${MYSQL_DB} \
                                 -p 3308:3306 \
-                                mysql:8.0 \
+                                mysql:8.0
                         '''
                         sh '''
                             until docker exec mysql-service mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e "SELECT 1;" > /dev/null 2>&1; do
