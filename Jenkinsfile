@@ -78,11 +78,15 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    echo $JAVA_HOME
-                    chmod +x ./mvnw
-                    ./mvnw test -D"spring.profiles.active"="dev"
-                '''
+                withCredentials([
+                    usernamePassword(credentialsId: 'mysql-usernam-password', usernameVariable: 'MYSQL_USER', passwordVariable: 'MYSQL_PASSWORD')
+                ]) {
+                    sh '''
+                        echo $JAVA_HOME
+                        chmod +x ./mvnw
+                        ./mvnw test -D"spring.profiles.active"="dev" -D"spring.datasource.username=$MYSQL_USER" -D"spring.datasource.password=$MYSQL_PASSWORD"
+                    '''
+                }
             }
         }
 
