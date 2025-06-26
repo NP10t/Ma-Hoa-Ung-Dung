@@ -1,0 +1,26 @@
+# docker build -f Dockerfile.2 -t vngo:2 .
+
+FROM eclipse-temurin:21.0.6_7-jdk AS build
+WORKDIR /app
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+# Đảm bảo mvnw có quyền thực thi (trên hệ thống Linux)
+RUN chmod +x ./mvnw
+
+# Tải dependency bằng mvnw
+RUN ./mvnw dependency:go-offline
+
+COPY src ./src
+
+RUN ./mvnw package -DskipTests
+
+# Stage 2
+#FROM amazoncorretto:21.0.6
+FROM chainguard/jre:latest
+WORKDIR /app
+
+COPY --from=build /app/target/myapp.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

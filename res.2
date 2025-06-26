@@ -1,0 +1,91 @@
+(base) nguyenphuc@H:/mnt/e/Jenkins$ trivy image vngo:2
+2025-06-26T04:41:41Z    INFO    [vuln] Vulnerability scanning is enabled
+2025-06-26T04:41:41Z    INFO    [secret] Secret scanning is enabled
+2025-06-26T04:41:41Z    INFO    [secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2025-06-26T04:41:41Z    INFO    [secret] Please see also https://trivy.dev/v0.63/docs/scanner/secret#recommendation for faster secret detection
+2025-06-26T04:42:03Z    INFO    Detected OS     family="wolfi" version="20230201"
+2025-06-26T04:42:03Z    INFO    [wolfi] Detecting vulnerabilities...    pkg_num=39
+2025-06-26T04:42:03Z    INFO    Number of language-specific files       num=1
+2025-06-26T04:42:03Z    INFO    [jar] Detecting vulnerabilities...
+2025-06-26T04:42:04Z    INFO    Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+
+Report Summary
+
+┌─────────────────────────┬───────┬─────────────────┬─────────┐
+│         Target          │ Type  │ Vulnerabilities │ Secrets │
+├─────────────────────────┼───────┼─────────────────┼─────────┤
+│ vngo:2 (wolfi 20230201) │ wolfi │        0        │    -    │
+├─────────────────────────┼───────┼─────────────────┼─────────┤
+│ app/app.jar             │  jar  │       15        │    -    │
+└─────────────────────────┴───────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+Java (jar)
+
+Total: 15 (UNKNOWN: 0, LOW: 4, MEDIUM: 5, HIGH: 5, CRITICAL: 1)
+
+┌─────────────────────────────────────────────────────────────┬────────────────┬──────────┬────────┬───────────────────┬──────────────────────────────────────────────────────┬─────────────────────────────────────────────────────────────┐
+│                           Library                           │ Vulnerability  │ Severity │ Status │ Installed Version │                    Fixed Version                     │                            Title                            │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┼────────┼───────────────────┼──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ ch.qos.logback:logback-core (app.jar)                       │ CVE-2024-12798 │ MEDIUM   │ fixed  │ 1.5.12            │ 1.5.13, 1.3.15                                       │ logback-core: arbitrary code execution via                  │
+│                                                             │                │          │        │                   │                                                      │ JaninoEventEvaluator                                        │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2024-12798                  │
+│                                                             ├────────────────┼──────────┤        │                   │                                                      ├─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2024-12801 │ LOW      │        │                   │                                                      │ logback-core: SaxEventRecorder vulnerable to Server-Side    │
+│                                                             │                │          │        │                   │                                                      │ Request Forgery (SSRF) attacks                              │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2024-12801                  │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ org.apache.tomcat.embed:tomcat-embed-core (app.jar)         │ CVE-2025-24813 │ CRITICAL │        │ 10.1.33           │ 11.0.3, 10.1.35, 9.0.99                              │ tomcat: Potential RCE and/or information disclosure and/or  │
+│                                                             │                │          │        │                   │                                                      │ information corruption with partial PUT...                  │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-24813                  │
+│                                                             ├────────────────┼──────────┤        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2024-50379 │ HIGH     │        │                   │ 11.0.2, 10.1.34, 9.0.98                              │ tomcat: RCE due to TOCTOU issue in JSP compilation          │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2024-50379                  │
+│                                                             ├────────────────┤          │        │                   │                                                      ├─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2024-56337 │          │        │                   │                                                      │ tomcat: Incomplete fix for CVE-2024-50379 - RCE due to      │
+│                                                             │                │          │        │                   │                                                      │ TOCTOU issue in...                                          │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2024-56337                  │
+│                                                             ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2025-48988 │          │        │                   │ 11.0.8, 10.1.42, 9.0.106                             │ tomcat: Apache Tomcat DoS in multipart upload               │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-48988                  │
+│                                                             ├────────────────┼──────────┤        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2025-31650 │ MEDIUM   │        │                   │ 9.0.104, 10.1.40, 11.0.6                             │ tomcat: Apache Tomcat: DoS via malformed HTTP/2             │
+│                                                             │                │          │        │                   │                                                      │ PRIORITY_UPDATE frame                                       │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-31650                  │
+│                                                             ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2025-49125 │          │        │                   │ 11.0.8, 10.1.42, 9.0.106                             │ tomcat: Apache Tomcat: Security constraint bypass for       │
+│                                                             │                │          │        │                   │                                                      │ pre/post-resources                                          │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-49125                  │
+│                                                             ├────────────────┼──────────┤        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2025-31651 │ LOW      │        │                   │ 9.0.104, 10.1.40, 11.0.6                             │ tomcat: Apache Tomcat: Bypass of rules in Rewrite Valve     │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-31651                  │
+│                                                             ├────────────────┤          │        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│                                                             │ CVE-2025-46701 │          │        │                   │ 9.0.105, 10.1.41, 11.0.7                             │ tomcat: Apache Tomcat: Security constraint bypass for CGI   │
+│                                                             │                │          │        │                   │                                                      │ scripts                                                     │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-46701                  │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ org.springframework.boot:spring-boot (app.jar)              │ CVE-2025-22235 │ HIGH     │        │ 3.4.0             │ 3.3.11, 3.4.5                                        │ org.springframework.boot/spring-boot: Spring Boot           │
+│                                                             │                │          │        │                   │                                                      │ EndpointRequest.to() creates wrong matcher if actuator      │
+│                                                             │                │          │        │                   │                                                      │ endpoint is not...                                          │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-22235                  │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ org.springframework.security:spring-security-core (app.jar) │ CVE-2025-22223 │ MEDIUM   │        │ 6.4.1             │ 6.4.4                                                │ spring-security: authorization bypass via incorrectly       │
+│                                                             │                │          │        │                   │                                                      │ locating method security annotations on parameterized       │
+│                                                             │                │          │        │                   │                                                      │ types...                                                    │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-22223                  │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┤        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ org.springframework.security:spring-security-crypto         │ CVE-2025-22228 │ HIGH     │        │                   │ 6.3.8, 6.4.4, 6.2.10, 6.1.14, 6.0.16, 5.8.18, 5.7.16 │ spring-security-core: Spring Security BCryptPasswordEncoder │
+│ (app.jar)                                                   │                │          │        │                   │                                                      │ does not enforce maximum password length                    │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-22228                  │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┤        ├───────────────────┼──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-context (app.jar)                │ CVE-2025-22233 │ LOW      │        │ 6.2.0             │ 6.2.7, 6.1.20                                        │ CVE-2024-38820 ensured Locale-independent, lowercase        │
+│                                                             │                │          │        │                   │                                                      │ conversion for bo ...                                       │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-22233                  │
+├─────────────────────────────────────────────────────────────┼────────────────┼──────────┤        │                   ├──────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────┤
+│ org.springframework:spring-web (app.jar)                    │ CVE-2025-41234 │ MEDIUM   │        │                   │ 6.2.8, 6.1.21                                        │ springframework: Reflected download attack in Spring        │
+│                                                             │                │          │        │                   │                                                      │ Framework with non-ASCII headers                            │
+│                                                             │                │          │        │                   │                                                      │ https://avd.aquasec.com/nvd/cve-2025-41234                  │
+└─────────────────────────────────────────────────────────────┴────────────────┴──────────┴────────┴───────────────────┴──────────────────────────────────────────────────────┴─────────────────────────────────────────────────────────────┘
